@@ -21,7 +21,7 @@ of letters:
   - n: any 0-9 digit
   - b: any alphabetical character or 0-9 digit
   - p: any punctuation character .,;:/#$-_=*%&
-  - h: any hexadecimal characetr (0-9 or A-F)
+  - h: any hexadecimal character (0-9 or A-F)
   - .: any character in the above lists
 
 the default format is bbbbbbbb
