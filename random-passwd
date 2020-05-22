@@ -1,0 +1,56 @@
+#!/usr/bin/python
+
+import getopt
+import random
+import string
+import sys
+
+#  some constants
+DEFAULT_FMT = 'bbbbbbbb'
+OPTIONS = ['format=']
+ALPHA = list(string.ascii_letters)
+NUM = list(string.digits)
+ALPHANUM = ALPHA + NUM
+PUNCT = list('.,;:/#$-_=*%&')
+HEXA = list('0123456789ABCDEF')
+ALL = ALPHA + NUM + PUNCT
+FORMATS = {
+    'a': ALPHA,
+    'n': NUM,
+    'b': ALPHANUM,
+    'p': PUNCT,
+    'h': HEXA,
+    '.': ALL
+}
+
+
+def error(msg):
+    '''print an error message and exit'''
+    print('error: {}'.format(msg), file=sys.stderr)
+    sys.exit(1)
+
+def main():
+    '''main procedure: parse command line, generate the password and print
+    it to stdout'''
+
+    fmt = DEFAULT_FMT
+    try:
+        opts, _ = getopt.getopt(sys.argv[1:], '', OPTIONS)
+        for opt, val in opts:
+            if opt == '--format':
+                fmt = val
+    except getopt.GetoptError as err:
+        error(err)
+
+    password = ''
+    for i in fmt:
+        if i not in FORMATS:
+            error('unrecognised character in format string: {}'.format(i))
+        else:
+            password += random.choice(FORMATS[i])
+    print(password)
+
+
+if __name__ == '__main__':
+    main()
+    sys.exit(0)
